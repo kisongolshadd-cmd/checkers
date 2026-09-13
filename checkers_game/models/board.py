@@ -1,7 +1,6 @@
 import random
 
 class Piece:
-    """Represents a checkers piece"""
 
     def __init__(self, player_color):
         self.player_color = player_color  # 'red' or 'black'
@@ -16,7 +15,6 @@ class Piece:
     def __repr__(self):
         return f"Piece({self.player_color}, king={self.is_king})"
 class Board:
-    """checkers board and game state"""
     def __init__(self):
         self.grid = [[None for _ in range(8)] for _ in range(8)]
         self.setup_pieces()
@@ -56,25 +54,23 @@ class Board:
     def move_piece(self, from_row, from_col, to_row, to_col):
         piece = self.grid[from_row][from_col]
         if not piece:
-            return False, "No piece at that position"
+            return False
 
         captured = None
 
-        # Regular move
         if abs(from_row - to_row) == 1 and abs(from_col - to_col) == 1:
             if self.grid[to_row][to_col] is not None:
                 return False, "position occupied"
             self.grid[to_row][to_col] = piece
             self.grid[from_row][from_col] = None
 
-        # Capture move
         elif abs(from_row - to_row) == 2 and abs(from_col - to_col) == 2:
             mid_row = (from_row + to_row) // 2
             mid_col = (from_col + to_col) // 2
             target = self.grid[mid_row][mid_col]
 
             if target is None or target.player_color == piece.player_color:
-                return False, "Invalid capture"
+                return False
 
             if self.grid[to_row][to_col] is not None:
                 return False, "position occupied"
@@ -87,7 +83,6 @@ class Board:
         else:
             return False, "Invalid move"
 
-        # Check king promotion
         if piece.player_color == "red" and to_row == 7:
             piece.is_king = True
         elif piece.player_color == "black" and to_row == 0:
@@ -99,10 +94,8 @@ class Board:
         piece = self.get_piece(from_row, from_col)
         if not piece or piece.player_color != player_color:
             return False
-        # Check boundaries
         if not (0 <= to_row < 8 and 0 <= to_col < 8):
             return False
-        # Check destination
         if self.get_piece(to_row, to_col) is not None:
             return False
 
@@ -117,12 +110,10 @@ class Board:
         directions = [(1, 1), (1, -1), (-1, 1), (-1, -1)]
 
         for dr, dc in directions:
-            # Regular move
             new_row, new_col = row + dr, col + dc
             if self.is_valid_move(row, col, new_row, new_col, piece.player_color):
                 moves.append(("regular", new_row, new_col))
 
-            # Capture move
             new_row, new_col = row + 2 * dr, col + 2 * dc
             mid_row, mid_col = row + dr, col + dc
             mid_piece = self.get_piece(mid_row, mid_col)
@@ -155,7 +146,6 @@ class Board:
     def play_game(self, game_instance):
         current_turn = "red"
 
-        # Safely resolve players from game_instance.players (list or dict)
         if hasattr(game_instance, "players") and isinstance(game_instance.players, list):
             p1, p2 = game_instance.players[0], game_instance.players[1]
         elif hasattr(game_instance, "players") and isinstance(game_instance.players, dict):
@@ -180,7 +170,6 @@ class Board:
             player_name = getattr(current_player, "username", "Player")
             print(f"Current Turn: {player_name} ({current_turn.upper()})")
 
-            # AI Turn
             if ai and current_turn == ai.color:
                 print("Computer is thinking...")
                 move = ai.get_best_move(self)
@@ -191,7 +180,6 @@ class Board:
                 success, msg = self.move_piece(from_r, from_c, to_r, to_c)
                 print(f"Computer moved from ({from_r}, {from_c}) to ({to_r}, {to_c})")
 
-            # Human Turn
             else:
                 user_input = input(
                     "Enter move (from_row from_col to_row to_col) or 'q' to quit: "
@@ -218,7 +206,6 @@ class Board:
                     print(f"Invalid move: {result}")
                     continue
 
-            # Switch turns
             current_turn = "black" if current_turn == "red" else "red"
 
 
@@ -230,7 +217,6 @@ class AIPlayer:
     def get_best_move(self, board):
         possible_moves = []
 
-        # Find all possible moves
         for row in range(8):
             for col in range(8):
                 piece = board.get_piece(row, col)
@@ -244,7 +230,6 @@ class AIPlayer:
         if not possible_moves:
             return None
 
-        # Prioritize capture moves
         capture_moves = [m for m in possible_moves if m[2] == "capture"]
         if capture_moves:
             return random.choice(capture_moves)

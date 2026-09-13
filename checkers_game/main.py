@@ -1,8 +1,3 @@
-"""
-Entry point for the checkers game.
-Shows the login/register screen, then hands off to the game menu
-once someone is signed in.
-"""
 
 import sys
 import os
@@ -20,10 +15,7 @@ def print_welcome():
 
 
 def login_or_register():
-    """
-    Keeps asking until the player logs in, registers, or quits.
-    Returns the username on success, or None if they quit.
-    """
+   
     while True:
         print("\n1. Login")
         print("2. Register")

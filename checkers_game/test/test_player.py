@@ -69,8 +69,6 @@ def test_record_capture_multiple_times():
     assert p.captured_count == 3
 
 
-# STATS TESTS
-
 def test_get_stats_for_ai_player_is_zeroed():
 
     p = player.Player("Computer", "black", is_ai=True)
@@ -91,8 +89,6 @@ def test_get_stats_for_registered_user(registered_players):
     stats = p.get_stats()
     assert stats == {"games_played": 0, "wins": 0, "losses": 0}
 
-
-# CREATE_PLAYERS TESTS
 
 def test_create_players_pvp_with_usernames():
     
@@ -192,8 +188,6 @@ def test_update_stats_accumulates_across_multiple_games(registered_players):
     assert users["devine"]["wins"] == 1
     assert users["devine"]["losses"] == 2
 
-
-# STRING REPRESENTATION TESTS
 
 def test_str_for_human_player():
     

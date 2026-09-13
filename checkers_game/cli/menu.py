@@ -1,7 +1,3 @@
-"""
-Main game menu for the checkers game.
-Displays options for playing against another player.
-"""
 
 import sys
 import os
@@ -15,7 +11,6 @@ from utils import auth
 
 
 def print_main_menu():
-    """Display main game menu options."""
     print("\n" + "*" * 20)
     print("   MAIN MENU")
     print("*" * 20)
@@ -32,7 +27,6 @@ def start_pvp_game(player1_username):
     print("\n--- Player vs Player Mode ---")
     player2_username = input("Opponent's username: ").strip()
 
-    # Verify opponent exists
     if not auth.user_exists(player2_username):
         print("Opponent not found. Returning to menu...")
         return
@@ -41,15 +35,12 @@ def start_pvp_game(player1_username):
         print("You cannot play against yourself!")
         return
 
-    # Create Player objects
     player1 = Player(player1_username, "red")
     player2 = Player(player2_username, "black")
 
-    # Create game instance
     new_game = game.Game(player1, player2)
     print(f"\nStarting game: {player1_username} vs {player2_username}")
 
-    # Launch board gameplay loop
     game_board = board.Board()
     game_board.play_game(new_game)
 
@@ -75,17 +66,14 @@ def start_pvc_game(player_username):
         player_color = "red"
         ai_color = "black"
 
-    # Create Player objects
     player = Player(player_username, player_color)
     ai = Player("Computer", ai_color)
 
-    # Create game instance
     new_game = game.Game(player, ai)
     print(
         f"\nStarting game: {player_username} ({player_color}) vs Computer ({ai_color})"
     )
 
-    # Launch board gameplay loop
     game_board = board.Board()
     game_board.play_game(new_game)
 
@@ -169,5 +157,4 @@ def main_menu(username):
 
 
 if __name__ == "__main__":
-    # For testing purposes
     main_menu("test_player")

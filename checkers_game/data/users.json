@@ -10,5 +10,11 @@
         "games_played": 0,
         "wins": 0,
         "losses": 0
+    },
+    "william": {
+        "password": "e3d13a22d164db55758b1f0566cd93c63cfb12cb8c79590e585ca6b01396a480",
+        "games_played": 0,
+        "wins": 0,
+        "losses": 0
     }
 }

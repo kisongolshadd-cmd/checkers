@@ -1,8 +1,3 @@
-"""
-Tests for utils/auth.py.
-Each test gets its own fake users.json (via the temp_users_file fixture)
-so tests don't interfere with each other or with real data.
-"""
 
 import os
 import sys
