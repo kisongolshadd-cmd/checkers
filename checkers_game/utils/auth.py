@@ -1,9 +1,4 @@
-"""
-Authentication utilities for the checkers game.
-Handles registering new players and logging existing ones in.
-User data is kept in data/users.json as a simple dict of
-username -> account info.
-"""
+
 
 import json
 import os
@@ -14,7 +9,6 @@ USERS_FILE = os.path.join(BASE_DIR, "data", "users.json")
 
 
 def load_users():
-    """Return all registered users as a dict. Empty dict if file is missing or broken."""
     if not os.path.exists(USERS_FILE):
         return {}
 
@@ -26,14 +20,12 @@ def load_users():
 
 
 def save_users(users):
-    """Write the users dict back to disk."""
     os.makedirs(os.path.dirname(USERS_FILE), exist_ok=True)
     with open(USERS_FILE, "w") as f:
         json.dump(users, f, indent=4)
 
 
 def hash_password(password):
-    """Turn a plain password into a sha256 hash so we never store it as-is."""
     return hashlib.sha256(password.encode()).hexdigest()
 
 
@@ -43,10 +35,7 @@ def user_exists(username):
 
 
 def register_user(username, password):
-    """
-    Create a new account. Returns (True, message) on success,
-    (False, message) if the username is taken or the input is invalid.
-    """
+    
     username = username.strip()
 
     if not username or not password:
@@ -70,10 +59,7 @@ def register_user(username, password):
 
 
 def login_user(username, password):
-    """
-    Check a username/password pair against stored users.
-    Returns (True, message) if they match, (False, message) otherwise.
-    """
+    
     users = load_users()
 
     if username not in users:
