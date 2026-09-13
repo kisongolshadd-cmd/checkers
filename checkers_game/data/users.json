@@ -4,5 +4,11 @@
         "games_played": 0,
         "wins": 0,
         "losses": 0
+    },
+    "monte": {
+        "password": "f06d102490f1b0a37cb248ca07139b61ad34402c1ce6eb5085768ed5aea64218",
+        "games_played": 0,
+        "wins": 0,
+        "losses": 0
     }
 }
